@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SearchClient {
@@ -39,22 +40,22 @@ public class SearchClient {
           if (!smry) {
             System.out.println("File " + file.toString() + " is a Java file. It will be analyzed.");
           }
-          ResultData resultData = new JavaAnalyzer(file).analyze();
-          resultsList.add(resultData);
+          Optional<ResultData> resultData = new JavaAnalyzer(file).analyze();
+          resultsList.add(resultData.get());
         } else if (isPythonFile(file)) {
           if (!smry) {
             System.out.println(
                 "File " + file.toString() + " is a Python file. It will be analyzed.");
           }
-          final ResultData resultData = new PythonAnalyzer(file).analyze();
-          resultsList.add(resultData);
+          final Optional<ResultData> resultData = new PythonAnalyzer(file).analyze();
+          resultsList.add(resultData.get());
         } else {
           if (!Files.isDirectory(file)) {
             if (!smry) {
               System.out.println(
                   "File " + file.toString() + " is neither a Java file nor a Python file.");
             }
-            resultsList.add(new AnalyzerImpl(file).analyze());
+            resultsList.add(new AnalyzerImpl(file).analyze().get());
           } else {
             if (!smry) {
               System.out.println("Skipping directory " + file + ".");

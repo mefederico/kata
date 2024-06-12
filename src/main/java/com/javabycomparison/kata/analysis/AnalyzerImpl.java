@@ -1,9 +1,11 @@
 package com.javabycomparison.kata.analysis;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 public class AnalyzerImpl implements Analyzer {
   private final Path file;
@@ -12,14 +14,19 @@ public class AnalyzerImpl implements Analyzer {
     this.file = file;
   }
 
+  private final int zero = 0;
+  private final int typeTwo = 2;
+
   @Override
-  public ResultData analyze() {
+  public Optional<ResultData> analyze() {
     try {
       List<String> fileContents = Files.readAllLines(this.file);
-      int l = fileContents.size();
-      return new ResultData(2, this.file.toString(), l, 0, 0, 0);
+      int fileSize = fileContents.size();
+      final ResultData resultData = new ResultData(typeTwo, this.file.toString(), fileSize, zero, zero, zero);
+      return Optional.of(resultData);
     } catch (IOException ioException) {
-      return new ResultData();
+      ioException.printStackTrace();
+      return Optional.empty();
     }
   }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 public class PythonAnalyzer implements Analyzer {
   private final Path file;
@@ -13,7 +14,7 @@ public class PythonAnalyzer implements Analyzer {
   }
 
   @Override
-  public ResultData analyze() throws IOException {
+  public Optional<ResultData> analyze() throws IOException {
     int number_of_imports = 0;
     int lines_of_code = 0;
     int number_of_methods = 0;
@@ -36,12 +37,14 @@ public class PythonAnalyzer implements Analyzer {
       }
     }
 
-    return new ResultData(
-        1,
-        this.file.toString(),
-        lines_of_code,
-        comment_lines_of_code,
-        number_of_methods,
-        number_of_imports);
+    final ResultData resultData = new ResultData(
+            1,
+            this.file.toString(),
+            lines_of_code,
+            comment_lines_of_code,
+            number_of_methods,
+            number_of_imports);
+
+    return Optional.of(resultData);
   }
 }

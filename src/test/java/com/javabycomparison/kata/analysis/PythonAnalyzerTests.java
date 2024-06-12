@@ -13,7 +13,7 @@ class PythonAnalyzerTests {
   @BeforeEach
   void analyzePython() throws IOException {
     pythonResult =
-        new PythonAnalyzer(Paths.get("./src/main/resources/python_files/function.py")).analyze();
+        new PythonAnalyzer(Paths.get("./src/main/resources/python_files/function.py")).analyze().get();
   }
 
   @Test

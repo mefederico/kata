@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 public class JavaAnalyzer implements Analyzer {
 
@@ -12,35 +15,49 @@ public class JavaAnalyzer implements Analyzer {
   public JavaAnalyzer(Path file) {
     this.file = file;
   }
+  private final int zero = 0;
+  private final int one = 1;
 
   @Override
-  public ResultData analyze() throws IOException {
+  public Optional<ResultData> analyze() throws IOException {
+
     if (file != null) {
-      int imports = 0;
-      int LoC = 0;
-      int commentsLoC = 0;
+      int imports = zero;
+      int LoC = zero;
+      int commentsLoC = zero;
 
       try {
         BufferedReader reader = Files.newBufferedReader(this.file);
 
-        String line;
-        while ((line = reader.readLine()) != null) {
-          LoC += 1;
-          if (line.trim().startsWith("import")) {
-            imports += 1;
-          } else if (line.trim().startsWith("//")
-              || line.trim().startsWith("*")
-              || line.trim().startsWith("/*")) {
-            commentsLoC += 1;
+        String line = reader.readLine();
+        while (line != null) {
+
+          LoC += one;
+          if (startWith(line,"import")) {
+            imports += one;
+
+          } else if (startWith(line,"//")
+              || startWith(line,"*")
+              || startWith(line,"/*")) {
+            commentsLoC += one;
           }
         }
+
         // It is impossible to detect the number of methods at the moment.
-        return new ResultData(0, this.file.toString(), LoC, commentsLoC, 0, imports);
+        final ResultData resultData = new ResultData(zero, this.file.toString(), LoC, commentsLoC, zero, imports);
+        return Optional.of(resultData) ;
+
       } catch (IOException ioe) {
+
         throw new IOException("There was a problem reading a file!");
       }
+
     } else {
-      return null;
+      return Optional.empty();
     }
+  }
+
+  private boolean startWith(final String string, final String stringStart) {
+     return string.trim().startsWith(stringStart);
   }
 }
