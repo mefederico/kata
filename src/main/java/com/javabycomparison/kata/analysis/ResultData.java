@@ -3,13 +3,13 @@ package com.javabycomparison.kata.analysis;
 import java.util.StringJoiner;
 
 public class ResultData {
-  public int type;
-  public String name;
-  public int L;
-  public int LOC;
-  public int commentLOC;
-  public int numMethod;
-  public int nImports;
+  private int type;
+  private String name;
+  private int L;
+  private int LOC;
+  private int commentLOC;
+  private int numMethod;
+  private int nImports;
 
   public ResultData(int type, String name, int LOC, int commentLOC, int numMethod, int nImports) {
     this.type = type;

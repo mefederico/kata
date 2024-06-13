@@ -25,6 +25,6 @@ class PythonAnalyzerTests {
 
   @Test
   void analyzeFractionOfComments() {
-    Assertions.assertEquals(5.66, (float) pythonResult.LOC / pythonResult.commentLOC, 1.5);
+    Assertions.assertEquals(5.66, (float) pythonResult.getLOC() / pythonResult.getCommentLOC(), 1.5);
   }
 }

@@ -85,13 +85,13 @@ public class ResultPrinter {
   private static int calculateFileNameLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.name).length(), String.valueOf(r2.name).length()),
+        Math.max(String.valueOf(r1.getName()).length(), String.valueOf(r2.getName()).length()),
         FILE_NAME.length());
   }
 
   private static int calculateLanguageLength(ResultData r1, ResultData r2) {
-    String languageR1 = (r1.type == 0) ? "Java" : "Python";
-    String languageR2 = (r2.type == 0) ? "Java" : "Python";
+    String languageR1 = (r1.getType() == 0) ? "Java" : "Python";
+    String languageR2 = (r2.getType() == 0) ? "Java" : "Python";
 
     // returns the length of the longest string of the three
     return Math.max(Math.max(languageR1.length(), languageR2.length()), LANGUAGE.length());
@@ -100,27 +100,27 @@ public class ResultPrinter {
   private static int calculateLOCLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.LOC).length(), String.valueOf(r2.LOC).length()), LOC.length());
+        Math.max(String.valueOf(r1.getLOC()).length(), String.valueOf(r2.getLOC()).length()), LOC.length());
   }
 
   private static int calculateCommentLOCLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.commentLOC).length(), String.valueOf(r2.commentLOC).length()),
+        Math.max(String.valueOf(r1.getCommentLOC()).length(), String.valueOf(r2.getCommentLOC()).length()),
         COMMENT_LOC.length());
   }
 
   private static int calculateNumMethodsLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.numMethod).length(), String.valueOf(r2.numMethod).length()),
+        Math.max(String.valueOf(r1.getNumMethod()).length(), String.valueOf(r2.getNumMethod()).length()),
         NUM_METHODS.length());
   }
 
   private static int calculateNImportsLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.nImports).length(), String.valueOf(r2.nImports).length()),
+        Math.max(String.valueOf(r1.getnImports()).length(), String.valueOf(r2.getnImports()).length()),
         N_IMPORTS.length());
   }
 }

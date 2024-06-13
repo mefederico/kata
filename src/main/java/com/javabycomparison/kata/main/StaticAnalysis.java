@@ -69,24 +69,24 @@ public class StaticAnalysis {
       if (!summary) {
         System.out.println(new ResultDataPrinter().print(resultData));
       }
-      if (resultData.type == 0) {
-        javaLOC += resultData.LOC;
-        javaCommentLOC += resultData.commentLOC;
-        javaNumMethod += resultData.numMethod;
-        javanImports += resultData.nImports;
+      if (resultData.getType() == 0) {
+        javaLOC += resultData.getLOC();
+        javaCommentLOC += resultData.getCommentLOC();
+        javaNumMethod += resultData.getNumMethod();
+        javanImports += resultData.getnImports();
         continue;
       }
-      if (resultData.type == 1) {
-        pyLOC += resultData.LOC;
-        pyCommentLOC += resultData.commentLOC;
-        pyNumMethod += resultData.numMethod;
-        pynImports += resultData.nImports;
+      if (resultData.getType() == 1) {
+        pyLOC += resultData.getLOC();
+        pyCommentLOC += resultData.getCommentLOC();
+        pyNumMethod += resultData.getNumMethod();
+        pynImports += resultData.getnImports();
         continue;
       }
-      LOC += resultData.LOC;
-      commentLOC += resultData.commentLOC;
-      numMethod += resultData.numMethod;
-      nImports += resultData.nImports;
+      LOC += resultData.getLOC();
+      commentLOC += resultData.getCommentLOC();
+      numMethod += resultData.getNumMethod();
+      nImports += resultData.getnImports();
     }
 
     return new ResultData[]{

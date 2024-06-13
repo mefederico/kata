@@ -28,12 +28,12 @@ public class CSVPrinter {
               public String apply(ResultData result) {
                 return String.join(
                         ",",
-                        result.name,
-                        (result.type == 0) ? "Java" : "Python",
-                        String.valueOf(result.LOC),
-                        String.valueOf(result.commentLOC),
-                        String.valueOf(result.numMethod),
-                        String.valueOf(result.nImports))
+                        result.getName(),
+                        (result.getType() == 0) ? "Java" : "Python",
+                        String.valueOf(result.getLOC()),
+                        String.valueOf(result.getCommentLOC()),
+                        String.valueOf(result.getNumMethod()),
+                        String.valueOf(result.getnImports()))
                     + System.lineSeparator();
               }
             })
