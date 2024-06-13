@@ -6,6 +6,10 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class PythonAnalyzer implements Analyzer {
+  public static final int INT_ZERO = 0;
+  public static final String IMPORT = "import";
+  public static final String FROM = "from";
+  public static final int INT_ONE = 1;
   private final Path file;
 
   public PythonAnalyzer(Path file) {
@@ -14,30 +18,30 @@ public class PythonAnalyzer implements Analyzer {
 
   @Override
   public ResultData analyze() throws IOException {
-    int number_of_imports = 0;
-    int lines_of_code = 0;
-    int number_of_methods = 0;
-    int comment_lines_of_code = 0;
+    int number_of_imports = INT_ZERO;
+    int lines_of_code = INT_ZERO;
+    int number_of_methods = INT_ZERO;
+    int comment_lines_of_code = INT_ZERO;
 
     List<String> file_contents = Files.readAllLines(this.file);
     for (String line : file_contents) {
-      lines_of_code += 1;
-      if (line.trim().startsWith("import")) {
-        number_of_imports += 1;
+      lines_of_code += INT_ONE;
+      if (line.trim().startsWith(IMPORT)) {
+        number_of_imports += INT_ONE;
       }
-      if (line.trim().startsWith("from")) {
-        number_of_imports += 1;
+      if (line.trim().startsWith(FROM)) {
+        number_of_imports += INT_ONE;
         // In Python a comment starts with '#'
       } else if (line.trim().startsWith("#")) {
-        comment_lines_of_code += 1;
+        comment_lines_of_code += INT_ONE;
         // In Python a method is defined with 'def'
       } else if (line.trim().startsWith("def")) {
-        number_of_methods += 1;
+        number_of_methods += INT_ONE;
       }
     }
 
     return new ResultData(
-        1,
+            INT_ONE,
         this.file.toString(),
         lines_of_code,
         comment_lines_of_code,
