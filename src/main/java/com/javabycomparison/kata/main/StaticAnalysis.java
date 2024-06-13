@@ -10,13 +10,17 @@ import java.util.LinkedList;
 
 public class StaticAnalysis {
 
+  public static final String SMRY = "smry";
+
   public static void main(String... args) {
-    analyze(args.length == 0 ? null : args[0], args.length == 2 && args[1].equals("smry"));
+    String dirPath = args[0];
+    boolean summary = SMRY.equals(args[1]);
+    analyze(dirPath, summary);
   }
 
-  private static void analyze(String p, boolean smry) {
+  private static void analyze(String dirPath, boolean summary) {
     StaticAnalysis analyzer = new StaticAnalysis();
-    ResultData[] overallResult = analyzer.run(p == null ? "./src/" : p, smry);
+    ResultData[] overallResult = analyzer.run(dirPath == null ? "./src/" : dirPath, summary);
     if (overallResult != null) {
       ResultPrinter.printOverallResults(overallResult);
       try {
@@ -29,8 +33,8 @@ public class StaticAnalysis {
     }
   }
 
-  private ResultData[] run(String directoryPath, boolean smry) {
-    LinkedList<ResultData> results = new SearchClient(smry).collectAllFiles(directoryPath);
+  private ResultData[] run(String directoryPath, boolean summary) {
+    LinkedList<ResultData> results = new SearchClient(summary).collectAllFiles(directoryPath);
     if (results != null) {
       if (results.size() != 0) {
         int javaLOC = 0;
@@ -50,7 +54,7 @@ public class StaticAnalysis {
 
         for (int l = 0; l < results.size(); l = l + 1) {
           ResultData resultData = results.get(l);
-          if (!smry) {
+          if (!summary) {
             System.out.println(new ResultDataPrinter().print(resultData));
           }
           if (resultData.type == 0) {
