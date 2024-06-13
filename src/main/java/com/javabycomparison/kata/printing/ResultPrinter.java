@@ -8,10 +8,10 @@ public class ResultPrinter {
   // These are the Strings of the metrics
   private static final String FILE_NAME = "File Name";
   private static final String LANGUAGE = "  Language";
-  private static final String LOC = "  Lines of Code";
-  private static final String COMMENT_LOC = "  Number of Comments";
-  private static final String NUM_METHODS = "  Number of Methods";
-  private static final String N_IMPORTS = "  Number of Imports";
+  private static final String LINES_OF_CODE = "  Lines of Code";
+  private static final String NUMBER_OF_COMMENTS = "  Number of Comments";
+  private static final String NUMBER_OF_METHODS = "  Number of Methods";
+  private static final String NUMBER_OF_IMPORTS = "  Number of Imports";
 
   public static void printOverallResults(ResultData[] overallResult) {
 
@@ -44,8 +44,8 @@ public class ResultPrinter {
         .append(
             String.join(
                 "",
-                Collections.nCopies(Math.max(calculateLOCLength(r1, r2) - LOC.length(), 0), " ")))
-        .append(LOC);
+                Collections.nCopies(Math.max(calculateLOCLength(r1, r2) - LINES_OF_CODE.length(), 0), " ")))
+        .append(LINES_OF_CODE);
     stringBuilderForFirstResult.append(rdp.printLOC(r1, calculateLOCLength(r1, r2)));
     stringBuilderForSecondResult.append(rdp.printLOC(r2, calculateLOCLength(r1, r2)));
     stringBuilderForHeader
@@ -53,8 +53,8 @@ public class ResultPrinter {
             String.join(
                 "",
                 Collections.nCopies(
-                    Math.max(calculateCommentLOCLength(r1, r2) - COMMENT_LOC.length(), 0), " ")))
-        .append(COMMENT_LOC);
+                    Math.max(calculateCommentLOCLength(r1, r2) - NUMBER_OF_COMMENTS.length(), 0), " ")))
+        .append(NUMBER_OF_COMMENTS);
     stringBuilderForFirstResult.append(rdp.printCommentLOC(r1, calculateCommentLOCLength(r1, r2)));
     stringBuilderForSecondResult.append(rdp.printCommentLOC(r2, calculateCommentLOCLength(r1, r2)));
     stringBuilderForHeader
@@ -62,8 +62,8 @@ public class ResultPrinter {
             String.join(
                 "",
                 Collections.nCopies(
-                    Math.max(calculateNumMethodsLength(r1, r2) - NUM_METHODS.length(), 0), " ")))
-        .append(NUM_METHODS);
+                    Math.max(calculateNumMethodsLength(r1, r2) - NUMBER_OF_METHODS.length(), 0), " ")))
+        .append(NUMBER_OF_METHODS);
     stringBuilderForFirstResult.append(
         rdp.printNumMethodLOC(r1, calculateNumMethodsLength(r1, r2)));
     stringBuilderForSecondResult.append(
@@ -73,8 +73,8 @@ public class ResultPrinter {
             String.join(
                 "",
                 Collections.nCopies(
-                    Math.max(calculateNImportsLength(r1, r2) - N_IMPORTS.length(), 0), " ")))
-        .append(N_IMPORTS);
+                    Math.max(calculateNImportsLength(r1, r2) - NUMBER_OF_IMPORTS.length(), 0), " ")))
+        .append(NUMBER_OF_IMPORTS);
     stringBuilderForFirstResult.append(rdp.printNImportsLOC(r1, calculateNImportsLength(r1, r2)));
     stringBuilderForSecondResult.append(rdp.printNImportsLOC(r2, calculateNImportsLength(r1, r2)));
     System.out.println(stringBuilderForHeader.toString());
@@ -100,27 +100,27 @@ public class ResultPrinter {
   private static int calculateLOCLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.LOC).length(), String.valueOf(r2.LOC).length()), LOC.length());
+        Math.max(String.valueOf(r1.LOC).length(), String.valueOf(r2.LOC).length()), LINES_OF_CODE.length());
   }
 
   private static int calculateCommentLOCLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
         Math.max(String.valueOf(r1.commentLOC).length(), String.valueOf(r2.commentLOC).length()),
-        COMMENT_LOC.length());
+        NUMBER_OF_COMMENTS.length());
   }
 
   private static int calculateNumMethodsLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
         Math.max(String.valueOf(r1.numMethod).length(), String.valueOf(r2.numMethod).length()),
-        NUM_METHODS.length());
+        NUMBER_OF_METHODS.length());
   }
 
   private static int calculateNImportsLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
         Math.max(String.valueOf(r1.nImports).length(), String.valueOf(r2.nImports).length()),
-        N_IMPORTS.length());
+        NUMBER_OF_IMPORTS.length());
   }
 }
