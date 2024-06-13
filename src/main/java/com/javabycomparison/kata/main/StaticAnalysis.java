@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class StaticAnalysis {
 
   public static void main(String... args) {
-    analyze(args.length == 0 ? null : args[0], args.length == 2 ? args[1].equals("smry") : false);
+    analyze(args.length == 0 ? null : args[0], args.length == 2 && args[1].equals("smry"));
   }
 
   private static void analyze(String p, boolean smry) {
