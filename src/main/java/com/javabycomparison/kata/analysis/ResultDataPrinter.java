@@ -9,19 +9,8 @@ public class ResultDataPrinter {
     if (data.type == 0) language = "Java";
     else if (data.type == 1) language = "Python";
     else language = "other";
-    return data.name
-        + "\t"
-        + language
-        + "\t"
-        + data.L
-        + "\t"
-        + data.LOC
-        + "\t"
-        + data.commentLOC
-        + "\t"
-        + data.numMethod
-        + "\t"
-        + data.nImports;
+    return String.join("\t", data.name, language, String.valueOf(data.L), String.valueOf(data.LOC),
+        String.valueOf(data.commentLOC), String.valueOf(data.numMethod), String.valueOf(data.nImports));
   }
 
   public String printFileName(ResultData data, int length) {
