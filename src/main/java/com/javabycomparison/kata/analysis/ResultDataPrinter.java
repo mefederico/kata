@@ -9,17 +9,8 @@ public class ResultDataPrinter {
     if (data.type == 0) language = "Java";
     else if (data.type == 1) language = "Python";
     else language = "other";
-    return data.name
-        + "\t"
-        + language
-        + "\t"
-        + data.linesOfCode
-        + "\t"
-        + data.numberOfComments
-        + "\t"
-        + data.numberOfComments
-        + "\t"
-        + data.numberOfImports;
+    return String.join("\t", data.name, language, String.valueOf(data.linesOfCode),
+        String.valueOf(data.numberOfComments), String.valueOf(data.numberOfMethods), String.valueOf(data.numberOfImports));
   }
 
   public String printFileName(ResultData data, int length) {
@@ -39,7 +30,7 @@ public class ResultDataPrinter {
   public String printLOC(ResultData data, int length) {
     return String.join(
             "", Collections.nCopies(Math.max(length - String.valueOf(data.LOC).length(), 0), " "))
-        + data.LOC;
+        + data.linesOfCode;
   }
 
   public String printCommentLOC(ResultData data, int length) {
@@ -47,20 +38,20 @@ public class ResultDataPrinter {
             "",
             Collections.nCopies(
                 Math.max(length - String.valueOf(data.commentLOC).length(), 0), " "))
-        + data.commentLOC;
+        + data.numberOfComments;
   }
 
   public String printNumMethodLOC(ResultData data, int length) {
     return String.join(
             "",
             Collections.nCopies(Math.max(length - String.valueOf(data.numMethod).length(), 0), " "))
-        + data.numMethod;
+        + data.numberOfMethods;
   }
 
   public String printNImportsLOC(ResultData data, int length) {
     return String.join(
             "",
-            Collections.nCopies(Math.max(length - String.valueOf(data.NumerOfImports).length(), 0), " "))
-        + data.NumerOfImports;
+            Collections.nCopies(Math.max(length - String.valueOf(data.nImports).length(), 0), " "))
+        + data.numberOfImports;
   }
 }
