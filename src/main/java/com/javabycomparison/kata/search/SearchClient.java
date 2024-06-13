@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 
 public class SearchClient {
 
+  public static final String JAVA_REGEX = ".*\\.java";
+  public static final String PY_REGEX = ".*\\.py";
+  public static final String STRING_FILE = "File ";
   private boolean smry;
 
   public SearchClient(boolean smry) {
@@ -37,14 +40,14 @@ public class SearchClient {
               .collect(Collectors.toList())) {
         if (isJavaFile(file)) {
           if (!smry) {
-            System.out.println("File " + file.toString() + " is a Java file. It will be analyzed.");
+            System.out.println(STRING_FILE + file + " is a Java file. It will be analyzed.");
           }
           ResultData resultData = new JavaAnalyzer(file).analyze();
           resultsList.add(resultData);
         } else if (isPythonFile(file)) {
           if (!smry) {
             System.out.println(
-                "File " + file.toString() + " is a Python file. It will be analyzed.");
+                STRING_FILE + file + " is a Python file. It will be analyzed.");
           }
           final ResultData resultData = new PythonAnalyzer(file).analyze();
           resultsList.add(resultData);
@@ -52,7 +55,7 @@ public class SearchClient {
           if (!Files.isDirectory(file)) {
             if (!smry) {
               System.out.println(
-                  "File " + file.toString() + " is neither a Java file nor a Python file.");
+                  STRING_FILE + file + " is neither a Java file nor a Python file.");
             }
             resultsList.add(new AnalyzerImpl(file).analyze());
           } else {
@@ -70,7 +73,7 @@ public class SearchClient {
   }
 
   private boolean isJavaFile(Path file) {
-    if (file.toString().matches(".*\\.java")) {
+    if (file.toString().matches(JAVA_REGEX)) {
       return true;
     } else {
       return false;
@@ -78,7 +81,7 @@ public class SearchClient {
   }
 
   private boolean isPythonFile(Path file) {
-    if (file.getFileName().toString().matches(".*\\.py")) {
+    if (file.getFileName().toString().matches(PY_REGEX)) {
       return true;
     }
     return false;
