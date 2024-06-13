@@ -29,7 +29,7 @@ public class CSVPrinter {
                 return String.join(
                         ",",
                         result.name,
-                        (result.type == 0) == true ? "Java" : "Python",
+                        (result.type == 0) ? "Java" : "Python",
                         String.valueOf(result.LOC),
                         String.valueOf(result.commentLOC),
                         String.valueOf(result.numMethod),
