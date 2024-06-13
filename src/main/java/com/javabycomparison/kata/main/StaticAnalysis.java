@@ -57,17 +57,17 @@ public class StaticAnalysis {
             javaLOC += resultData.LOC;
             javaCommentLOC += resultData.commentLOC;
             javaNumMethod += resultData.numMethod;
-            javanImports += resultData.nImports;
+            javanImports += resultData.NumerOfImports;
           } else if (resultData.type == 1) {
             pyLOC += resultData.LOC;
             pyCommentLOC += resultData.commentLOC;
             pyNumMethod += resultData.numMethod;
-            pynImports += resultData.nImports;
+            pynImports += resultData.NumerOfImports;
           } else {
             LOC += resultData.LOC;
             commentLOC += resultData.commentLOC;
             numMethod += resultData.numMethod;
-            nImports += resultData.nImports;
+            nImports += resultData.NumerOfImports;
           }
         }
         return new ResultData[] {

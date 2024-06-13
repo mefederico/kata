@@ -3,61 +3,52 @@ package com.javabycomparison.kata.analysis;
 import java.util.StringJoiner;
 
 public class ResultData {
-  public int type;
-  public String name;
-  public int L;
-  public int LOC;
-  public int commentLOC;
-  public int numMethod;
-  public int nImports;
 
-  public ResultData(int type, String name, int LOC, int commentLOC, int numMethod, int nImports) {
-    this.type = type;
-    this.name = name.replaceAll("\\\\", "/");
-    this.LOC = LOC;
-    this.commentLOC = commentLOC;
-    this.numMethod = numMethod;
-    this.nImports = nImports;
-  }
+    public int type;
+    public String name;
+    public int linesOfCode;
+    public int numberOfComments;
+    public int numberOfMethods;
+    public int numberOfImports;
 
-  /*
-  public ResultData(boolean java){
-      this.javaFile = java;
+    public ResultData(int type, String name, int LinesOfCode, int NumberOfComments, int numberOfMethods, int numberOfImports) {
+        this.type = type;
+        this.name = name.replaceAll("\\\\", "/");
+        this.linesOfCode = LinesOfCode;
+        this.numberOfComments = NumberOfComments;
+        this.numberOfMethods = numberOfMethods;
+        this.numberOfImports = numberOfImports;
+    }
 
-  }
-  */
-  public ResultData() {}
+    /*
+    public ResultData(boolean java){
+        this.javaFile = java;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
+    }
+    */
+    public ResultData() {
+    }
 
-    if (o == null || getClass() != o.getClass()) return false;
-    ResultData that = (ResultData) o;
-    return type == that.type
-        && L == that.L
-        && LOC == that.LOC
-        && commentLOC == that.commentLOC
-        && numMethod == that.numMethod
-        && nImports == that.nImports
-        && name.equals(that.name);
-  }
+    @Override
+    public boolean equals(Object o) {
+        return this.equals(o);
+    }
 
-  @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
-  @Override
-  public String toString() {
-    return new StringJoiner(", ", ResultData.class.getSimpleName() + "[", "]")
-        .add("type=" + type)
-        .add("name='" + name + "'")
-        .add("L=" + L)
-        .add("LOC=" + LOC)
-        .add("commentLOC=" + commentLOC)
-        .add("numMethod=" + numMethod)
-        .add("nImports=" + nImports)
-        .toString();
-  }
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", ResultData.class.getSimpleName() + "[", "]")
+                .add("type=" + type)
+                .add("name='" + name + "'")
+                .add("LinesOfCode=" + linesOfCode)
+                .add("numberOfComments=" + numberOfComments)
+                .add("numberOfMethods=" + numberOfMethods)
+                .add("NumerOfImports=" + numberOfImports)
+                .toString();
+    }
+
 }

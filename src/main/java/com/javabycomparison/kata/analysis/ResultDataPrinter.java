@@ -13,15 +13,13 @@ public class ResultDataPrinter {
         + "\t"
         + language
         + "\t"
-        + data.L
+        + data.linesOfCode
         + "\t"
-        + data.LOC
+        + data.numberOfComments
         + "\t"
-        + data.commentLOC
+        + data.numberOfComments
         + "\t"
-        + data.numMethod
-        + "\t"
-        + data.nImports;
+        + data.numberOfImports;
   }
 
   public String printFileName(ResultData data, int length) {
@@ -62,7 +60,7 @@ public class ResultDataPrinter {
   public String printNImportsLOC(ResultData data, int length) {
     return String.join(
             "",
-            Collections.nCopies(Math.max(length - String.valueOf(data.nImports).length(), 0), " "))
-        + data.nImports;
+            Collections.nCopies(Math.max(length - String.valueOf(data.NumerOfImports).length(), 0), " "))
+        + data.NumerOfImports;
   }
 }

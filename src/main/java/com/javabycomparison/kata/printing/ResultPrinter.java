@@ -120,7 +120,7 @@ public class ResultPrinter {
   private static int calculateNImportsLength(ResultData r1, ResultData r2) {
     // returns the length of the longest string of the three
     return Math.max(
-        Math.max(String.valueOf(r1.nImports).length(), String.valueOf(r2.nImports).length()),
+        Math.max(String.valueOf(r1.NumerOfImports).length(), String.valueOf(r2.NumerOfImports).length()),
         N_IMPORTS.length());
   }
 }

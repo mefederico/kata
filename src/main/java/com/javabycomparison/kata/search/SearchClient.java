@@ -34,7 +34,7 @@ public class SearchClient {
                     }
                   })
               .sorted()
-              .collect(Collectors.toList())) {
+              .toList()) {
         if (isJavaFile(file)) {
           if (!smry) {
             System.out.println("File " + file.toString() + " is a Java file. It will be analyzed.");
