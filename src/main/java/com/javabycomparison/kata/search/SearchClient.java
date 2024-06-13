@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchClient {
@@ -21,20 +22,20 @@ public class SearchClient {
 
   public LinkedList<ResultData> collectAllFiles(String directoryPath) {
     LinkedList<ResultData> resultsList = new LinkedList<>();
+    List<Path> files = Files.walk(Paths.get(directoryPath))
+            .filter(path -> !path.toString().contains(".git"))
+            .filter(
+                    path -> {
+                      try {
+                        return !Files.isHidden(path);
+                      } catch (IOException e) {
+                        return false;
+                      }
+                    })
+            .collect(Collectors.toList());
+
     try {
-      for (Path file :
-          Files.walk(Paths.get(directoryPath))
-              .filter(path -> !path.toString().contains(".git"))
-              .filter(
-                  path -> {
-                    try {
-                      return !Files.isHidden(path);
-                    } catch (IOException e) {
-                      return false;
-                    }
-                  })
-              .sorted()
-              .toList()) {
+      for (Path file : files) {
         if (isJavaFile(file)) {
           if (!smry) {
             System.out.println("File " + file.toString() + " is a Java file. It will be analyzed.");
