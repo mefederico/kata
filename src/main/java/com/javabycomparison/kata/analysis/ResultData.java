@@ -60,4 +60,32 @@ public class ResultData {
         .add("nImports=" + nImports)
         .toString();
   }
+
+  public int getType() {
+    return type;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public int getL() {
+    return L;
+  }
+
+  public int getLOC() {
+    return LOC;
+  }
+
+  public int getCommentLOC() {
+    return commentLOC;
+  }
+
+  public int getNumMethod() {
+    return numMethod;
+  }
+
+  public int getnImports() {
+    return nImports;
+  }
 }
