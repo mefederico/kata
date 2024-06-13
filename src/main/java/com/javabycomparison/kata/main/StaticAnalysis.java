@@ -7,13 +7,19 @@ import com.javabycomparison.kata.printing.ResultPrinter;
 import com.javabycomparison.kata.search.SearchClient;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Optional;
 
 public class StaticAnalysis {
 
   public static final String SMRY = "smry";
+  public static final String OUTPUT_CSV = "output.csv";
+  public static final String OVERALL_JAVA = "Overall Java";
+  public static final String OVERALL_PYTHON = "Overall Python";
+  public static final String OVERALL_OTHER = "Overall Other";
 
   public static void main(String... args) {
-    String dirPath = args[0];
+    String dirPath = args[0] == null ? "./src/" : args[0];
     boolean summary = SMRY.equals(args[1]);
     analyze(dirPath, summary);
   }
@@ -21,15 +27,17 @@ public class StaticAnalysis {
   private static void analyze(String dirPath, boolean summary) {
     StaticAnalysis analyzer = new StaticAnalysis();
     ResultData[] overallResult = analyzer.run(dirPath == null ? "./src/" : dirPath, summary);
-    if (overallResult != null) {
-      ResultPrinter.printOverallResults(overallResult);
-      try {
-        new CSVPrinter("output.csv").writeCSV(overallResult);
-      } catch (IOException e) {
-        System.err.println("Something went a bit wrong");
-      }
-    } else {
+
+    if (overallResult == null) {
       System.err.println("Something went terribly wrong");
+      return;
+    }
+
+    ResultPrinter.printOverallResults(overallResult);
+    try {
+      new CSVPrinter(OUTPUT_CSV).writeCSV(overallResult);
+    } catch (IOException e) {
+      System.err.println("Something went a bit wrong");
     }
   }
 
@@ -52,8 +60,7 @@ public class StaticAnalysis {
         int numMethod = 0;
         int nImports = 0;
 
-        for (int l = 0; l < results.size(); l = l + 1) {
-          ResultData resultData = results.get(l);
+        for (ResultData resultData : results) {
           if (!summary) {
             System.out.println(new ResultDataPrinter().print(resultData));
           }
@@ -74,10 +81,11 @@ public class StaticAnalysis {
             nImports += resultData.nImports;
           }
         }
+
         return new ResultData[] {
-          new ResultData(0, "Overall Java", javaLOC, javaCommentLOC, javaNumMethod, javanImports),
-          new ResultData(1, "Overall Python", pyLOC, pyCommentLOC, pyNumMethod, pynImports),
-          new ResultData(2, "Overall Other", LOC, commentLOC, numMethod, nImports),
+          new ResultData(0, OVERALL_JAVA, javaLOC, javaCommentLOC, javaNumMethod, javanImports),
+          new ResultData(1, OVERALL_PYTHON, pyLOC, pyCommentLOC, pyNumMethod, pynImports),
+          new ResultData(2, OVERALL_OTHER, LOC, commentLOC, numMethod, nImports),
         };
       } else {
         return new ResultData[] {new ResultData()};
