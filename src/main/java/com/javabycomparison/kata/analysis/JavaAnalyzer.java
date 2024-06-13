@@ -9,6 +9,7 @@ public class JavaAnalyzer implements Analyzer {
 
   public static final int MAGIC_NUMBER = 0;
   public static final String IMPORT = "import";
+  public static final int INT_ONE = 1;
   private final Path file;
 
   public JavaAnalyzer(Path file) {
@@ -27,13 +28,13 @@ public class JavaAnalyzer implements Analyzer {
 
         String line;
         while ((line = reader.readLine()) != null) {
-          LoC += 1;
+          LoC += INT_ONE;
           if (line.trim().startsWith(IMPORT)) {
-            imports += 1;
+            imports += INT_ONE;
           } else if (line.trim().startsWith("//")
               || line.trim().startsWith("*")
               || line.trim().startsWith("/*")) {
-            commentsLoC += 1;
+            commentsLoC += INT_ONE;
           }
         }
         // It is impossible to detect the number of methods at the moment.
