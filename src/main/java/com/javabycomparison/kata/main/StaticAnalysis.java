@@ -5,10 +5,9 @@ import com.javabycomparison.kata.analysis.ResultDataPrinter;
 import com.javabycomparison.kata.printing.CSVPrinter;
 import com.javabycomparison.kata.printing.ResultPrinter;
 import com.javabycomparison.kata.search.SearchClient;
+
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Optional;
 
 public class StaticAnalysis {
 
@@ -41,58 +40,59 @@ public class StaticAnalysis {
     }
   }
 
-  private ResultData[] run(String directoryPath, boolean summary) {
-    LinkedList<ResultData> results = new SearchClient(summary).collectAllFiles(directoryPath);
-    if (results != null) {
-      if (results.size() != 0) {
-        int javaLOC = 0;
-        int javaCommentLOC = 0;
-        int javaNumMethod = 0;
-        int javanImports = 0;
-
-        int pyLOC = 0;
-        int pyCommentLOC = 0;
-        int pyNumMethod = 0;
-        int pynImports = 0;
-
-        int LOC = 0;
-        int commentLOC = 0;
-        int numMethod = 0;
-        int nImports = 0;
-
-        for (ResultData resultData : results) {
-          if (!summary) {
-            System.out.println(new ResultDataPrinter().print(resultData));
-          }
-          if (resultData.type == 0) {
-            javaLOC += resultData.LOC;
-            javaCommentLOC += resultData.commentLOC;
-            javaNumMethod += resultData.numMethod;
-            javanImports += resultData.nImports;
-          } else if (resultData.type == 1) {
-            pyLOC += resultData.LOC;
-            pyCommentLOC += resultData.commentLOC;
-            pyNumMethod += resultData.numMethod;
-            pynImports += resultData.nImports;
-          } else {
-            LOC += resultData.LOC;
-            commentLOC += resultData.commentLOC;
-            numMethod += resultData.numMethod;
-            nImports += resultData.nImports;
-          }
-        }
-
-        return new ResultData[] {
-          new ResultData(0, OVERALL_JAVA, javaLOC, javaCommentLOC, javaNumMethod, javanImports),
-          new ResultData(1, OVERALL_PYTHON, pyLOC, pyCommentLOC, pyNumMethod, pynImports),
-          new ResultData(2, OVERALL_OTHER, LOC, commentLOC, numMethod, nImports),
-        };
-      } else {
-        return new ResultData[] {new ResultData()};
-      }
+  private ResultData[] run(String dirPath, boolean summary) {
+    LinkedList<ResultData> results = new SearchClient(summary).collectAllFiles(dirPath);
+    if (results == null) {
+      System.err.println("There was a problem with the result!");
+      return null;
     }
-    System.err.println("There was a problem with the result!");
+    if (results.isEmpty()) {
+      return new ResultData[]{new ResultData()};
+    }
 
-    return null;
+    int javaLOC = 0;
+    int javaCommentLOC = 0;
+    int javaNumMethod = 0;
+    int javanImports = 0;
+
+    int pyLOC = 0;
+    int pyCommentLOC = 0;
+    int pyNumMethod = 0;
+    int pynImports = 0;
+
+    int LOC = 0;
+    int commentLOC = 0;
+    int numMethod = 0;
+    int nImports = 0;
+
+    for (ResultData resultData : results) {
+      if (!summary) {
+        System.out.println(new ResultDataPrinter().print(resultData));
+      }
+      if (resultData.type == 0) {
+        javaLOC += resultData.LOC;
+        javaCommentLOC += resultData.commentLOC;
+        javaNumMethod += resultData.numMethod;
+        javanImports += resultData.nImports;
+        continue;
+      }
+      if (resultData.type == 1) {
+        pyLOC += resultData.LOC;
+        pyCommentLOC += resultData.commentLOC;
+        pyNumMethod += resultData.numMethod;
+        pynImports += resultData.nImports;
+        continue;
+      }
+      LOC += resultData.LOC;
+      commentLOC += resultData.commentLOC;
+      numMethod += resultData.numMethod;
+      nImports += resultData.nImports;
+    }
+
+    return new ResultData[]{
+            new ResultData(0, OVERALL_JAVA, javaLOC, javaCommentLOC, javaNumMethod, javanImports),
+            new ResultData(1, OVERALL_PYTHON, pyLOC, pyCommentLOC, pyNumMethod, pynImports),
+            new ResultData(2, OVERALL_OTHER, LOC, commentLOC, numMethod, nImports),
+    };
   }
 }
